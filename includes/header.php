@@ -16,7 +16,6 @@ $title = "BloodTrackr - Dashboard Sidebar";
       display: flex;
       font-family: Arial, sans-serif;
     }
-    
     .content-container {
       flex: 1;
       padding: 20px;
@@ -66,6 +65,53 @@ $title = "BloodTrackr - Dashboard Sidebar";
       cursor: pointer;
     }
     button:hover {
+      background: #0056b3;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .delete-btn {
+      padding: 5px 10px;
+      background-color: #FF0000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .delete-btn:hover {
+      background-color: #cc0000;
+    }
+    .search-bar {
+      margin-bottom: 20px;
+    }
+    .search-bar input {
+      width: calc(100% - 40px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .search-bar button {
+      padding: 10px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .search-bar button:hover {
       background: #0056b3;
     }
   </style>
@@ -176,6 +222,7 @@ $title = "BloodTrackr - Dashboard Sidebar";
           if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $bloodBankName = htmlspecialchars($_POST['bloodBankName']);
             $location = htmlspecialchars($_POST['location']);
+            $LandlineNum = htmlspecialchars($_POST['LandlineNum']);
             $contactNumber = htmlspecialchars($_POST['contactNumber']);
             $bloodAvailable = htmlspecialchars($_POST['bloodAvailable']);
 
@@ -184,6 +231,7 @@ $title = "BloodTrackr - Dashboard Sidebar";
             echo "<h3>Submitted Data:</h3>";
             echo "Blood Bank Name: " . $bloodBankName . "<br>";
             echo "Location: " . $location . "<br>";
+            echo "Landline Number: " . $LandlineNum . "<br>";
             echo "Contact Number: " . $contactNumber . "<br>";
             echo "Blood Available: " . $bloodAvailable . "<br>";
           }
@@ -192,11 +240,25 @@ $title = "BloodTrackr - Dashboard Sidebar";
       </div>
       <div id="users" class="content">
         <h1>Users</h1>
-        <p>Manage users here.</p>
+        <div id="userTableContainer">
+          <table class="table" id="usersTable">
+            <tr>
+              <th>Profile Picture</th>
+              <th>Name</th>
+              <th>Home Address</th>
+              <th>Blood Type</th>
+              <th>Actions</th>
+            </tr>
+          </table>
+        </div>
       </div>
       <div id="reviews" class="content">
         <h1>Reviews</h1>
-        <p>Here are the reviews.</p>
+        <div class="search-bar">
+          <input type="text" id="reviewSearch" placeholder="Search reviews...">
+          <button onclick="searchReviews()">Search</button>
+        </div>
+        <div id="reviewContainer"></div>
       </div>
     </div>
   </section>
@@ -223,12 +285,116 @@ $title = "BloodTrackr - Dashboard Sidebar";
         content.style.display = 'none';
       });
       document.getElementById(pageId).style.display = 'block';
+
+      if (pageId === 'users') {
+        fetchUsers();
+      } else if (pageId === 'reviews') {
+        fetchReviews();
+      }
     }
 
-    // Show the dashboard by default on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      showPage('dashboard');
-    });
+    function fetchUsers() {
+      fetch('users.php')
+        .then(response => response.json())
+        .then(data => {
+          const usersTable = document.getElementById('usersTable');
+          usersTable.innerHTML = `
+            <tr>
+              <th>Profile Picture</th>
+              <th>Name</th>
+              <th>Home Address</th>
+              <th>Blood Type</th>
+              <th>Actions</th>
+            </tr>
+          `;
+          data.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td><img src="${user.profile_picture}" alt="Profile Picture" class="profile-pic"></td>
+              <td>${user.name}</td>
+              <td>${user.home_address}</td>
+              <td>${user.blood_type}</td>
+              <td><button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button></td>
+            `;
+            usersTable.appendChild(row);
+          });
+        });
+    }
+
+    function deleteUser(userId) {
+      if (confirm('Are you sure you want to delete this user?')) {
+        fetch(`delete_user.php?id=${userId}`, { method: 'GET' })
+          .then(response => response.text())
+          .then(result => {
+            if (result === 'success') {
+              fetchUsers();
+            } else {
+              alert('Error deleting user.');
+            }
+          });
+      }
+    }
+
+    function fetchReviews() {
+      fetch('reviews.php')
+        .then(response => response.json())
+        .then(data => {
+          const reviewContainer = document.getElementById('reviewContainer');
+          reviewContainer.innerHTML = '';
+          data.forEach(review => {
+            const reviewDiv = document.createElement('div');
+            reviewDiv.classList.add('review');
+            reviewDiv.innerHTML = `
+              <div class="review-header">
+                <img src="${review.profile_picture}" alt="Profile Picture" class="profile-pic">
+                <span class="review-user">${review.name}</span>
+                <span class="review-date">${review.date}</span>
+              </div>
+              <p class="review-text">${review.review}</p>
+              <button class="delete-btn" onclick="deleteReview(${review.id})">Delete</button>
+            `;
+            reviewContainer.appendChild(reviewDiv);
+          });
+        });
+    }
+
+    function searchReviews() {
+      const query = document.getElementById('reviewSearch').value;
+      fetch(`reviews.php?search=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          const reviewContainer = document.getElementById('reviewContainer');
+          reviewContainer.innerHTML = '';
+          data.forEach(review => {
+            const reviewDiv = document.createElement('div');
+            reviewDiv.classList.add('review');
+            reviewDiv.innerHTML = `
+              <div class="review-header">
+                <img src="${review.profile_picture}" alt="Profile Picture" class="profile-pic">
+                <span class="review-user">${review.name}</span>
+                <span class="review-date">${review.date}</span>
+              </div>
+              <p class="review-text">${review.review}</p>
+              <button class="delete-btn" onclick="deleteReview(${review.id})">Delete</button>
+            `;
+            reviewContainer.appendChild(reviewDiv);
+          });
+        });
+    }
+
+    function deleteReview(reviewId) {
+      if (confirm('Are you sure you want to delete this review?')) {
+        fetch(`delete_review.php?id=${reviewId}`, { method: 'GET' })
+          .then(response => response.text())
+          .then(result => {
+            if (result === 'success') {
+              fetchReviews();
+            } else {
+              alert('Error deleting review.');
+            }
+          });
+      }
+    }
   </script>
 </body>
 

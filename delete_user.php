@@ -1,5 +1,5 @@
 <?php
-// users.php
+// delete_user.php
 $servername = "your_server";
 $username = "your_username";
 $password = "your_password";
@@ -13,19 +13,18 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT id, profile_picture, name, home_address, blood_type FROM users";
-$result = $conn->query($sql);
+if (isset($_GET['id'])) {
+  $userId = intval($_GET['id']);
+  $sql = "DELETE FROM users WHERE id = $userId";
 
-$users = array();
-
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $users[] = $row;
+  if ($conn->query($sql) === TRUE) {
+    echo "success";
+  } else {
+    echo "error";
   }
+} else {
+  echo "error";
 }
 
 $conn->close();
-
-header('Content-Type: application/json');
-echo json_encode($users);
 ?>

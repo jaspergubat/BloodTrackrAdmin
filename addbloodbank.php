@@ -19,7 +19,7 @@
     </div>
     <button type="submit">Add Blood Bank</button>
   </form>
-<!--help-->
+
   <?php
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $bloodBankName = htmlspecialchars($_POST['bloodBankName']);
