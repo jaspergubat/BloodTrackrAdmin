@@ -158,6 +158,10 @@ $title = "BloodTrackr - Dashboard Sidebar";
               <textarea id="location" name="location" required></textarea>
             </div>
             <div class="form-group">
+              <label for="LandlineNum">Landline Number</label>
+              <input type="tel" id="LandlineNum" name="LandlineNum" required>
+            </div>
+            <div class="form-group">
               <label for="contactNumber">Contact Number</label>
               <input type="tel" id="contactNumber" name="contactNumber" required>
             </div>
