@@ -1,143 +1,13 @@
-<?php
-$title = "BloodTrackr - Dashboard Sidebar";
-// Sample data for blood banks (in a real application, this would be fetched from a database)
-$bloodBanks = [
-  ['name' => 'Blood Bank A', 'location' => 'City A'],
-  ['name' => 'Blood Bank B', 'location' => 'City B'],
-  ['name' => 'Blood Bank C', 'location' => 'City C']
-];
-
-// Check if a blood bank has been removed
-if (isset($_POST['remove'])) {
-  $index = $_POST['remove'];
-  unset($bloodBanks[$index]);
-  $bloodBanks = array_values($bloodBanks); // Re-index the array
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title><?php echo $title; ?></title>
-  <style>
-    body {
-      display: flex;
-      font-family: Arial, sans-serif;
-    }
-    .content-container {
-      flex: 1;
-      padding: 20px;
-    }
-    .content {
-      display: none;
-    }
-    .container {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 300px;
-      margin: 0 auto;
-    }
-    h2 {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-    input[type="text"],
-    input[type="tel"],
-    textarea {
-      width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    textarea {
-      resize: vertical;
-      height: 60px;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    .profile-pic {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
-    .delete-btn {
-      padding: 5px 10px;
-      background-color: #FF0000;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .delete-btn:hover {
-      background-color: #cc0000;
-    }
-    .search-bar {
-      margin-bottom: 20px;
-    }
-    .search-bar input {
-      width: calc(100% - 40px);
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .search-bar button {
-      padding: 10px;
-      background: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .search-bar button:hover {
-      background: #0056b3;
-    }
-    li {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-      margin: 5px 0;
-      
-    }
-    
-  </style>
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Boxicons CDN Link -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
-
 <body>
   <nav class="sidebar close">
     <header>
@@ -149,49 +19,60 @@ if (isset($_POST['remove'])) {
           <span class="name">BloodTrackr</span>
         </div>
       </div>
-      <img src="assets/images/right.png" alt="Toggle Icon" class="toggle">
+      <i class="bx bx-chevron-right toggle"></i>
     </header>
-
     <div class="menu-bar">
       <div class="menu">
+        <li class="search-box">
+          <i class="bx bx-search icon"></i>
+          <input type="text" placeholder="Search...">
+        </li>
         <ul class="menu-links">
           <li class="nav-link">
             <a href="#" onclick="showPage('dashboard')">
+              <i class="bx bx-home-alt icon"></i>
               <span class="text nav-text">Dashboard</span>
             </a>
           </li>
           <li class="nav-link">
             <a href="#" onclick="showPage('bloodBanks')">
+              <i class="bx bx-bar-chart-alt-2 icon"></i>
               <span class="text nav-text">Blood Banks</span>
             </a>
           </li>
           <li class="nav-link">
             <a href="#" onclick="showPage('addBloodBank')">
+              <i class="bx bx-bell icon"></i>
               <span class="text nav-text">Add Blood Bank</span>
             </a>
           </li>
           <li class="nav-link">
             <a href="#" onclick="showPage('users')">
+              <i class="bx bx-user icon"></i>
               <span class="text nav-text">Users</span>
             </a>
           </li>
           <li class="nav-link">
             <a href="#" onclick="showPage('reviews')">
+              <i class="bx bx-message-square-dots icon"></i>
               <span class="text nav-text">Reviews</span>
             </a>
           </li>
         </ul>
       </div>
-
       <div class="bottom-content">
         <ul>
-          <li class="">
+          <li>
             <a href="#">
+              <i class="bx bx-log-out icon"></i>
               <span class="text nav-text">Logout</span>
             </a>
           </li>
           <li class="mode">
-            <div class="sun-moon"></div>
+            <div class="sun-moon">
+              <i class="bx bx-moon icon moon"></i>
+              <i class="bx bx-sun icon sun"></i>
+            </div>
             <span class="mode-text text">Dark mode</span>
             <div class="toggle-switch">
               <span class="switch"></span>
@@ -201,24 +82,19 @@ if (isset($_POST['remove'])) {
       </div>
     </div>
   </nav>
-
   <section class="home">
     <div class="content-container">
       <div id="dashboard" class="content">
-        <h1>Dashboard</h1>
+        <h2>Dashboard</h2>
         <p>Welcome to the dashboard.</p>
       </div>
-      <<div id="bloodBanks" class="content">
-        <h1>Blood Banks</h1>
+      <div id="bloodBanks" class="content">
+        <h2>Blood Banks</h2>
         <ul>
-          <?php foreach ($bloodBanks as $index => $bloodBank): ?>
-            <li>
-              <span><?php echo htmlspecialchars($bloodBank['name']); ?> - <?php echo htmlspecialchars($bloodBank['location']); ?></span>
-              <form method="post" style="display:inline;">
-                <button type="submit" name="remove" value="<?php echo $index; ?>">Remove</button>
-              </form>
-            </li>
-          <?php endforeach; ?>
+          <!-- Example blood banks for demonstration purposes -->
+          <li>Bank 1 - Location 1</li>
+          <li>Bank 2 - Location 2</li>
+          <li>Bank 3 - Location 3</li>
         </ul>
       </div>
       <div id="addBloodBank" class="content">
@@ -247,29 +123,10 @@ if (isset($_POST['remove'])) {
             </div>
             <button type="submit">Add Blood Bank</button>
           </form>
-
-          <?php
-          if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['remove'])) {
-            $bloodBankName = htmlspecialchars($_POST['bloodBankName']);
-            $location = htmlspecialchars($_POST['location']);
-            $LandlineNum = htmlspecialchars($_POST['LandlineNum']);
-            $contactNumber = htmlspecialchars($_POST['contactNumber']);
-            $bloodAvailable = htmlspecialchars($_POST['bloodAvailable']);
-
-            // In a real application, you would save this data to a database.
-            // For now, we'll just display the submitted data for demonstration purposes.
-            echo "<h3>Submitted Data:</h3>";
-            echo "Blood Bank Name: " . $bloodBankName . "<br>";
-            echo "Location: " . $location . "<br>";
-            echo "Landline Number: " . $LandlineNum . "<br>";
-            echo "Contact Number: " . $contactNumber . "<br>";
-            echo "Blood Available: " . $bloodAvailable . "<br>";
-          }
-          ?>
         </div>
       </div>
       <div id="users" class="content">
-        <h1>Users</h1>
+        <h2>Users</h2>
         <div id="userTableContainer">
           <table class="table" id="usersTable">
             <tr>
@@ -283,7 +140,7 @@ if (isset($_POST['remove'])) {
         </div>
       </div>
       <div id="reviews" class="content">
-        <h1>Reviews</h1>
+        <h2>Reviews</h2>
         <div class="search-bar">
           <input type="text" id="reviewSearch" placeholder="Search reviews...">
           <button onclick="searchReviews()">Search</button>
@@ -295,7 +152,7 @@ if (isset($_POST['remove'])) {
 
   <script>
     const body = document.querySelector('body'),
-      sidebar = body.querySelector('nav'),
+      sidebar = body.querySelector('.sidebar'),
       toggle = body.querySelector(".toggle"),
       modeSwitch = body.querySelector(".toggle-switch"),
       modeText = body.querySelector(".mode-text");
@@ -425,7 +282,9 @@ if (isset($_POST['remove'])) {
           });
       }
     }
+
+    // Initially show the "dashboard" content
+    showPage('dashboard');
   </script>
 </body>
-
 </html>
