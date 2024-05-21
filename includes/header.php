@@ -3,19 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>BloodTrackr Dashboard</title>
   <link rel="stylesheet" href="styles.css">
   <!-- Boxicons CDN Link -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      font-family: Arial, sans-serif;
+    }
+    .content-container {
+      flex: 1;
+      padding: 20px;
+    }
+    .content {
+      display: none;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      justify-content: flex-start;
+      padding: 10px;
+      margin: 5px 0;
+    
+    }
+    .form-inline {
+      display: flex;
+      gap: 10px;
+    }
+    input[type="text"],
+    input[type="tel"] {
+      padding: 5px;
+      margin-right: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .update-btn, .delete-btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .update-btn {
+      background-color: #007BFF;
+      color: white;
+    }
+    .delete-btn {
+      background-color: #FF0000;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   <nav class="sidebar close">
     <header>
       <div class="image-text">
-          <span class="image">
-            <img src="assets/images/logo.png" alt="Logo">
-          </span>
-        <div class="text logo-text">
+        <span class="image">
+          <img src="assets/images/logo.png" alt="Logo">
+        </span>
         <div class="text logo-text">
           <span class="name">BloodTrackr</span>
         </div>
@@ -24,7 +72,6 @@
     </header>
     <div class="menu-bar">
       <div class="menu">
-
         <ul class="menu-links">
           <li class="nav-link">
             <a href="#" onclick="showPage('dashboard')">
@@ -89,10 +136,51 @@
       <div id="bloodBanks" class="content">
         <h2>Blood Banks</h2>
         <ul>
-          <!-- Example blood banks for demonstration purposes -->
-          <li>Bank 1 - Location 1</li>
-          <li>Bank 2 - Location 2</li>
-          <li>Bank 3 - Location 3</li>
+          <?php
+          $bloodBanks = [
+              ["id" => 1, "name" => "Blood Bank A", "location" => "Location A", "landline" => "1234567890", "contact" => "9876543210", "bloodAvailable" => "A+, B-"],
+              ["id" => 2, "name" => "Blood Bank B", "location" => "Location B", "landline" => "1234567890", "contact" => "9876543210", "bloodAvailable" => "O+, AB-"],
+              // Add more blood banks as needed
+          ];
+
+          if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              if (isset($_POST['remove'])) {
+                  $idToRemove = $_POST['id'];
+                  $bloodBanks = array_filter($bloodBanks, function ($bank) use ($idToRemove) {
+                      return $bank['id'] != $idToRemove;
+                  });
+                  $bloodBanks = array_values($bloodBanks);
+              }
+              if (isset($_POST['update'])) {
+                  $idToUpdate = $_POST['id'];
+                  foreach ($bloodBanks as &$bank) {
+                      if ($bank['id'] == $idToUpdate) {
+                          $bank['name'] = $_POST['name'];
+                          $bank['location'] = $_POST['location'];
+                          $bank['landline'] = $_POST['landline'];
+                          $bank['contact'] = $_POST['contact'];
+                          $bank['bloodAvailable'] = $_POST['bloodAvailable'];
+                          break;
+                      }
+                  }
+              }
+          }
+
+          foreach ($bloodBanks as $bank) {
+              echo '<li>';
+              echo '<form class="form-inline" action="" method="POST">';
+              echo '<input type="hidden" name="id" value="' . $bank['id'] . '">';
+              echo '<input type="text" name="name" value="' . $bank['name'] . '" required>';
+              echo '<input type="text" name="location" value="' . $bank['location'] . '" required>';
+              echo '<input type="tel" name="landline" value="' . $bank['landline'] . '" required>';
+              echo '<input type="tel" name="contact" value="' . $bank['contact'] . '" required>';
+              echo '<input type="text" name="bloodAvailable" value="' . $bank['bloodAvailable'] . '" required>';
+              echo '<button type="submit" name="update" class="update-btn">Update</button>';
+              echo '<button type="submit" name="remove" class="delete-btn">Remove</button>';
+              echo '</form>';
+              echo '</li>';
+          }
+          ?>
         </ul>
       </div>
       <div id="addBloodBank" class="content">
