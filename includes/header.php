@@ -191,7 +191,6 @@ if (isset($_POST['remove'])) {
             </a>
           </li>
           <li class="mode">
-            <div class="sun-moon"></div>
             <span class="mode-text text">Dark mode</span>
             <div class="toggle-switch">
               <span class="switch"></span>
@@ -208,7 +207,7 @@ if (isset($_POST['remove'])) {
         <h1>Dashboard</h1>
         <p>Welcome to the dashboard.</p>
       </div>
-      <<div id="bloodBanks" class="content">
+      <div id="bloodBanks" class="content">
         <h1>Blood Banks</h1>
         <ul>
           <?php foreach ($bloodBanks as $index => $bloodBank): ?>

@@ -26,9 +26,7 @@
     $location = htmlspecialchars($_POST['location']);
     $contactNumber = htmlspecialchars($_POST['contactNumber']);
     $bloodAvailable = htmlspecialchars($_POST['bloodAvailable']);
-
-    // Here, you can add your code to save the data to a database or process it as needed
-    // For demonstration, we'll just display the submitted data
+    
     echo "<h3>Submitted Data:</h3>";
     echo "Blood Bank Name: " . $bloodBankName . "<br>";
     echo "Location: " . $location . "<br>";

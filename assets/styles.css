@@ -224,21 +224,20 @@ body.dark .sidebar li a:hover .text {
   transition: var(--tran-05);
 }
 
-.menu-bar .mode .sun-moon {
+.menu-bar .mode {
   height: 50px;
-  width: 60px;
 }
 
-.mode .sun-moon i {
+.mode i {
   position: absolute;
 }
-.mode .sun-moon i.sun {
+.mode i.sun {
   opacity: 0;
 }
-body.dark .mode .sun-moon i.sun {
+body.dark .mode i.sun {
   opacity: 1;
 }
-body.dark .mode .sun-moon i.moon {
+body.dark .mode i.moon {
   opacity: 0;
 }
 
@@ -301,6 +300,9 @@ body.dark .switch::before {
   height: 100vh;
   width: calc(100% - 78px);
 }
+
 body.dark .home .text {
   color: var(--text-color);
 }
+
+
