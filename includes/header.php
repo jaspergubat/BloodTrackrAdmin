@@ -111,6 +111,24 @@ $title = "BloodTrackr - Dashboard Sidebar";
       border-radius: 4px;
       cursor: pointer;
     }
+
+    .box {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: inline-block; /* Added to make boxes side by side */
+  width: 100%; /* Calculate width for two boxes with margin */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.box h2 {
+  margin-bottom: 100px;
+  width: 100%;
+}
+
+
     .search-bar button:hover {
       background: #0056b3;
     }
@@ -184,9 +202,19 @@ $title = "BloodTrackr - Dashboard Sidebar";
   <section class="home">
     <div class="content-container">
       <div id="dashboard" class="content">
-        <h1>Dashboard</h1>
-        <p>Welcome to the dashboard.</p>
-      </div>
+  <h1>Dashboard</h1>
+  <div class="container">
+    <div class="box">
+      <h2>Total Registered Users</h2>
+      <p id="totalUsers">Loading...</p>
+    </div>
+    <div class="box">
+      <h2>Total Blood Banks</h2>
+      <p id="totalBloodBanks">Loading...</p>
+    </div>
+  </div>
+</div>
+
       <div id="bloodBanks" class="content">
         <h1>Blood Banks</h1>
         <p>Here are the blood banks.</p>
@@ -217,25 +245,6 @@ $title = "BloodTrackr - Dashboard Sidebar";
             </div>
             <button type="submit">Add Blood Bank</button>
           </form>
-
-          <?php
-          if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $bloodBankName = htmlspecialchars($_POST['bloodBankName']);
-            $location = htmlspecialchars($_POST['location']);
-            $LandlineNum = htmlspecialchars($_POST['LandlineNum']);
-            $contactNumber = htmlspecialchars($_POST['contactNumber']);
-            $bloodAvailable = htmlspecialchars($_POST['bloodAvailable']);
-
-            // Here, you can add your code to save the data to a database or process it as needed
-            // For demonstration, we'll just display the submitted data
-            echo "<h3>Submitted Data:</h3>";
-            echo "Blood Bank Name: " . $bloodBankName . "<br>";
-            echo "Location: " . $location . "<br>";
-            echo "Landline Number: " . $LandlineNum . "<br>";
-            echo "Contact Number: " . $contactNumber . "<br>";
-            echo "Blood Available: " . $bloodAvailable . "<br>";
-          }
-          ?>
         </div>
       </div>
       <div id="users" class="content">
@@ -286,11 +295,23 @@ $title = "BloodTrackr - Dashboard Sidebar";
       });
       document.getElementById(pageId).style.display = 'block';
 
-      if (pageId === 'users') {
+      if (pageId === 'dashboard') {
+        fetchDashboardData();
+      } else if (pageId === 'users') {
         fetchUsers();
       } else if (pageId === 'reviews') {
         fetchReviews();
       }
+    }
+
+    function fetchDashboardData() {
+      fetch('dashboard_data.php')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('totalUsers').innerText = data.totalUsers;
+          document.getElementById('totalBloodBanks').innerText = data.totalBloodBanks;
+        })
+        .catch(error => console.error('Error fetching dashboard data:', error));
     }
 
     function fetchUsers() {
@@ -318,7 +339,8 @@ $title = "BloodTrackr - Dashboard Sidebar";
             `;
             usersTable.appendChild(row);
           });
-        });
+        })
+        .catch(error => console.error('Error fetching users:', error));
     }
 
     function deleteUser(userId) {
@@ -331,7 +353,8 @@ $title = "BloodTrackr - Dashboard Sidebar";
             } else {
               alert('Error deleting user.');
             }
-          });
+          })
+          .catch(error => console.error('Error deleting user:', error));
       }
     }
 
@@ -355,7 +378,8 @@ $title = "BloodTrackr - Dashboard Sidebar";
             `;
             reviewContainer.appendChild(reviewDiv);
           });
-        });
+        })
+        .catch(error => console.error('Error fetching reviews:', error));
     }
 
     function searchReviews() {
@@ -379,7 +403,8 @@ $title = "BloodTrackr - Dashboard Sidebar";
             `;
             reviewContainer.appendChild(reviewDiv);
           });
-        });
+        })
+        .catch(error => console.error('Error searching reviews:', error));
     }
 
     function deleteReview(reviewId) {
@@ -392,7 +417,8 @@ $title = "BloodTrackr - Dashboard Sidebar";
             } else {
               alert('Error deleting review.');
             }
-          });
+          })
+          .catch(error => console.error('Error deleting review:', error));
       }
     }
   </script>
