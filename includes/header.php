@@ -13,10 +13,11 @@
     <header>
       <div class="image-text">
         <span class="image">
-          <img src="assets/images/logo.png" alt="Logo">
+          <img src="profile.png" alt="">
         </span>
         <div class="text logo-text">
           <span class="name">BloodTrackr</span>
+          <span class="profession">Web developer</span>
         </div>
       </div>
       <i class="bx bx-chevron-right toggle"></i>
