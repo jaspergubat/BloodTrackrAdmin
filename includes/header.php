@@ -24,10 +24,7 @@
     </header>
     <div class="menu-bar">
       <div class="menu">
-        <li class="search-box">
-          <i class="bx bx-search icon"></i>
-          <input type="text" placeholder="Search...">
-        </li>
+
         <ul class="menu-links">
           <li class="nav-link">
             <a href="#" onclick="showPage('dashboard')">
@@ -74,7 +71,7 @@
               <i class="bx bx-moon icon moon"></i>
               <i class="bx bx-sun icon sun"></i>
             </div>
-            <span class="mode-text text">Dark mode</span>
+            <span class="text nav-text mode-text">Dark mode</span>
             <div class="toggle-switch">
               <span class="switch"></span>
             </div>
