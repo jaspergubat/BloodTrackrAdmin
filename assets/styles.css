@@ -295,6 +295,16 @@ body.dark .switch::before {
   padding: 12px 60px;
 }
 
+#dashboard, #bloodBanks, #users, #reviews {
+  color: var(--text-color);
+}
+
+
+#removeButton {
+  color: white;
+  background-color: var(--primary-color);
+}
+
 .sidebar.close ~ .home {
   left: 78px;
   height: 100vh;
@@ -304,5 +314,3 @@ body.dark .switch::before {
 body.dark .home .text {
   color: var(--text-color);
 }
-
-

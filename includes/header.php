@@ -111,7 +111,6 @@ if (isset($_POST['remove'])) {
       margin-bottom: 20px;
     }
     .search-bar input {
-      width: calc(100% - 40px);
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -214,7 +213,7 @@ if (isset($_POST['remove'])) {
             <li>
               <span><?php echo htmlspecialchars($bloodBank['name']); ?> - <?php echo htmlspecialchars($bloodBank['location']); ?></span>
               <form method="post" style="display:inline;">
-                <button type="submit" name="remove" value="<?php echo $index; ?>">Remove</button>
+                <button id="removeButton" type="submit" name="remove" value="<?php echo $index; ?>">Remove</button>
               </form>
             </li>
           <?php endforeach; ?>
@@ -284,8 +283,8 @@ if (isset($_POST['remove'])) {
       <div id="reviews" class="content">
         <h1>Reviews</h1>
         <div class="search-bar">
-          <input type="text" id="reviewSearch" placeholder="Search reviews...">
-          <button onclick="searchReviews()">Search</button>
+          <input class="balance" type="text" id="reviewSearch" placeholder="Search reviews...">
+          <button class="balance" onclick="searchReviews()">Search</button>
         </div>
         <div id="reviewContainer"></div>
       </div>
