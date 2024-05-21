@@ -1,5 +1,18 @@
 <?php
 $title = "BloodTrackr - Dashboard Sidebar";
+// Sample data for blood banks (in a real application, this would be fetched from a database)
+$bloodBanks = [
+  ['name' => 'Blood Bank A', 'location' => 'City A'],
+  ['name' => 'Blood Bank B', 'location' => 'City B'],
+  ['name' => 'Blood Bank C', 'location' => 'City C']
+];
+
+// Check if a blood bank has been removed
+if (isset($_POST['remove'])) {
+  $index = $_POST['remove'];
+  unset($bloodBanks[$index]);
+  $bloodBanks = array_values($bloodBanks); // Re-index the array
+}
 ?>
 
 <!DOCTYPE html>
@@ -111,30 +124,17 @@ $title = "BloodTrackr - Dashboard Sidebar";
       border-radius: 4px;
       cursor: pointer;
     }
- .container-wrapper {
-  display: flex;
-  justify-content: space-between; /* Ensure containers are spaced evenly */
-  width: 100%; /* Span the whole page */
-}
-
-.box, .back-box {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 30px; /* Increase padding for larger container */
-  margin-bottom: 20px;
-  width: calc(50% - 20px); /* Calculate width for each container with margin */
-  box-sizing: border-box; /* Ensure padding is included in the width */
-}
-
-.box h2, .back-box h2 {
-  margin-bottom: 10px;
-}
-
-
     .search-bar button:hover {
       background: #0056b3;
     }
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      margin: 5px 0;
+      
+    }
+    
   </style>
 </head>
 
@@ -205,22 +205,21 @@ $title = "BloodTrackr - Dashboard Sidebar";
   <section class="home">
     <div class="content-container">
       <div id="dashboard" class="content">
-  <h1>Dashboard</h1>
-  <div class="container">
-    <div class="box">
-      <h2>Total Registered Users</h2>
-      <p id="totalUsers">Loading...</p>
-    </div>
-    <div class="box">
-      <h2>Total Blood Banks</h2>
-      <p id="totalBloodBanks">Loading...</p>
-    </div>
-  </div>
-</div>
-
-      <div id="bloodBanks" class="content">
+        <h1>Dashboard</h1>
+        <p>Welcome to the dashboard.</p>
+      </div>
+      <<div id="bloodBanks" class="content">
         <h1>Blood Banks</h1>
-        <p>Here are the blood banks.</p>
+        <ul>
+          <?php foreach ($bloodBanks as $index => $bloodBank): ?>
+            <li>
+              <span><?php echo htmlspecialchars($bloodBank['name']); ?> - <?php echo htmlspecialchars($bloodBank['location']); ?></span>
+              <form method="post" style="display:inline;">
+                <button type="submit" name="remove" value="<?php echo $index; ?>">Remove</button>
+              </form>
+            </li>
+          <?php endforeach; ?>
+        </ul>
       </div>
       <div id="addBloodBank" class="content">
         <div class="container">
@@ -248,6 +247,25 @@ $title = "BloodTrackr - Dashboard Sidebar";
             </div>
             <button type="submit">Add Blood Bank</button>
           </form>
+
+          <?php
+          if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['remove'])) {
+            $bloodBankName = htmlspecialchars($_POST['bloodBankName']);
+            $location = htmlspecialchars($_POST['location']);
+            $LandlineNum = htmlspecialchars($_POST['LandlineNum']);
+            $contactNumber = htmlspecialchars($_POST['contactNumber']);
+            $bloodAvailable = htmlspecialchars($_POST['bloodAvailable']);
+
+            // In a real application, you would save this data to a database.
+            // For now, we'll just display the submitted data for demonstration purposes.
+            echo "<h3>Submitted Data:</h3>";
+            echo "Blood Bank Name: " . $bloodBankName . "<br>";
+            echo "Location: " . $location . "<br>";
+            echo "Landline Number: " . $LandlineNum . "<br>";
+            echo "Contact Number: " . $contactNumber . "<br>";
+            echo "Blood Available: " . $bloodAvailable . "<br>";
+          }
+          ?>
         </div>
       </div>
       <div id="users" class="content">
@@ -298,23 +316,11 @@ $title = "BloodTrackr - Dashboard Sidebar";
       });
       document.getElementById(pageId).style.display = 'block';
 
-      if (pageId === 'dashboard') {
-        fetchDashboardData();
-      } else if (pageId === 'users') {
+      if (pageId === 'users') {
         fetchUsers();
       } else if (pageId === 'reviews') {
         fetchReviews();
       }
-    }
-
-    function fetchDashboardData() {
-      fetch('dashboard_data.php')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('totalUsers').innerText = data.totalUsers;
-          document.getElementById('totalBloodBanks').innerText = data.totalBloodBanks;
-        })
-        .catch(error => console.error('Error fetching dashboard data:', error));
     }
 
     function fetchUsers() {
@@ -342,8 +348,7 @@ $title = "BloodTrackr - Dashboard Sidebar";
             `;
             usersTable.appendChild(row);
           });
-        })
-        .catch(error => console.error('Error fetching users:', error));
+        });
     }
 
     function deleteUser(userId) {
@@ -356,8 +361,7 @@ $title = "BloodTrackr - Dashboard Sidebar";
             } else {
               alert('Error deleting user.');
             }
-          })
-          .catch(error => console.error('Error deleting user:', error));
+          });
       }
     }
 
@@ -381,8 +385,7 @@ $title = "BloodTrackr - Dashboard Sidebar";
             `;
             reviewContainer.appendChild(reviewDiv);
           });
-        })
-        .catch(error => console.error('Error fetching reviews:', error));
+        });
     }
 
     function searchReviews() {
@@ -406,8 +409,7 @@ $title = "BloodTrackr - Dashboard Sidebar";
             `;
             reviewContainer.appendChild(reviewDiv);
           });
-        })
-        .catch(error => console.error('Error searching reviews:', error));
+        });
     }
 
     function deleteReview(reviewId) {
@@ -420,8 +422,7 @@ $title = "BloodTrackr - Dashboard Sidebar";
             } else {
               alert('Error deleting review.');
             }
-          })
-          .catch(error => console.error('Error deleting review:', error));
+          });
       }
     }
   </script>
