@@ -111,21 +111,24 @@ $title = "BloodTrackr - Dashboard Sidebar";
       border-radius: 4px;
       cursor: pointer;
     }
+ .container-wrapper {
+  display: flex;
+  justify-content: space-between; /* Ensure containers are spaced evenly */
+  width: 100%; /* Span the whole page */
+}
 
-    .box {
+.box, .back-box {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 20px;
+  padding: 30px; /* Increase padding for larger container */
   margin-bottom: 20px;
-  display: inline-block; /* Added to make boxes side by side */
-  width: 100%; /* Calculate width for two boxes with margin */
+  width: calc(50% - 20px); /* Calculate width for each container with margin */
   box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
-.box h2 {
-  margin-bottom: 100px;
-  width: 100%;
+.box h2, .back-box h2 {
+  margin-bottom: 10px;
 }
 
 
