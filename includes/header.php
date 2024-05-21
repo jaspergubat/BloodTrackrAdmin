@@ -12,12 +12,12 @@
   <nav class="sidebar close">
     <header>
       <div class="image-text">
-        <span class="image">
-          <img src="profile.png" alt="">
-        </span>
+          <span class="image">
+            <img src="assets/images/logo.png" alt="Logo">
+          </span>
+        <div class="text logo-text">
         <div class="text logo-text">
           <span class="name">BloodTrackr</span>
-          <span class="profession">Web developer</span>
         </div>
       </div>
       <i class="bx bx-chevron-right toggle"></i>
@@ -31,19 +31,19 @@
         <ul class="menu-links">
           <li class="nav-link">
             <a href="#" onclick="showPage('dashboard')">
-              <i class="bx bx-home-alt icon"></i>
+              <i class="bx bx-grid-alt icon"></i>
               <span class="text nav-text">Dashboard</span>
             </a>
           </li>
           <li class="nav-link">
             <a href="#" onclick="showPage('bloodBanks')">
-              <i class="bx bx-bar-chart-alt-2 icon"></i>
+              <i class="bx bx-donate-blood icon"></i>
               <span class="text nav-text">Blood Banks</span>
             </a>
           </li>
           <li class="nav-link">
             <a href="#" onclick="showPage('addBloodBank')">
-              <i class="bx bx-bell icon"></i>
+              <i class="bx bx-plus-circle icon"></i>
               <span class="text nav-text">Add Blood Bank</span>
             </a>
           </li>

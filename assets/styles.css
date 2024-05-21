@@ -410,3 +410,12 @@ body.dark th {
 body.dark td {
   background: #3a3b3c;
 }
+
+.nav-link a {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link a .icon {
+  margin-right: 10px; /* Adjust margin as needed */
+}
