@@ -127,54 +127,54 @@
     </div>
   </nav>
   <section class="home">
-    <div class="content-container">
-      <div id="dashboard" class="content">
+  <div class="content-container">
+    <div id="dashboard" class="content">
         <h2>Dashboard</h2>
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <div class="row">
-                  <div class="col-xs-3">
-                    <i class="fa fa-user fa-5x"></i>
-                  </div>
-                  <div class="col-xs-9 text-right">
-                    <div class="huge">123</div>
-                    <div>Blood Banks</div>
-                  </div>
+        <div class="grid-container">
+            <div class="grid-child purple">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-user fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">123</div>
+                                <div>Blood Banks</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" onclick="showPage('bloodBanks')">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
-              </div>
-              <div class="panel-footer" onclick="showPage('bloodBanks')">
-                <span class="pull-left">View Details</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-              </div>
             </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="panel panel-green">
-              <div class="panel-heading">
-                <div class="row">
-                  <div class="col-xs-3">
-                    <i class="fa fa-tasks fa-5x"></i>
-                  </div>
-                  <div class="col-xs-9 text-right">
-                    <div class="huge">12</div>
-                    <div>Users</div>
-                  </div>
+            <div class="grid-child green">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">12</div>
+                                <div>Users</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" onclick="showPage('users')">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
-              </div>
-              <div class="panel-footer" onclick="showPage('users')">
-                <span class="pull-left">View Details</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-              </div>
             </div>
-          </div>
-          <div class="col-lg-3 col-md-6"></div>
-          <div class="col-lg-3 col-md-6"></div>
         </div>
-      </div>
+    </div>
+</div>
+
       <div id="bloodBanks" class="content">
         <h2>Blood Banks</h2>
         <ul>
