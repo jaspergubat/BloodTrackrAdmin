@@ -267,29 +267,42 @@
     </div>
 </div>
 
-      <div id="users" class="content">
-        <h2>Users</h2>
-        <div id="userTableContainer">
-          <table class="table" id="usersTable">
+<div id="users" class="content">
+    <h2>Users</h2>
+    <div id="userTableContainer" class="section-container">
+        <table class="table" id="usersTable">
             <tr>
-              <th>Profile Picture</th>
-              <th>Name</th>
-              <th>Home Address</th>
-              <th>Blood Type</th>
-              <th>Actions</th>
+                <th>Name</th>
+                <th>Home Address</th>
+                <th>Blood Type</th>
+                <th>Actions</th>
             </tr>
-          </table>
-        </div>
-      </div>
-      <div id="reviews" class="content">
-        <h2>Reviews</h2>
-        <div class="search-bar">
-          <input type="text" id="reviewSearch" placeholder="Search reviews...">
-          <button onclick="searchReviews()">Search</button>
-        </div>
-        <div id="reviewContainer"></div>
-      </div>
+            <!-- Example user row -->
+            <tr>
+                <td>John Doe</td>
+                <td>123 Main St</td>
+                <td>A+</td>
+                <td>
+                    <button onclick="deleteUser(this)">Delete</button>
+                </td>
+            </tr>
+            <!-- Add more rows dynamically here -->
+        </table>
     </div>
+</div>
+<div id="reviews" class="content">
+    <h2>Reviews</h2>
+    <div class="section-container">
+        <div class="search-bar">
+            <input type="text" id="reviewSearch" placeholder="Search reviews...">
+            <button onclick="searchReviews()">Search</button>
+        </div>
+        <div id="reviewContainer">
+            <!-- Reviews will be loaded here -->
+        </div>
+    </div>
+</div>
+
   </section>
 
   <script>
