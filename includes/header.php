@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BloodTrackr Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/styles.css">
   <!-- Boxicons CDN Link -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <style>
@@ -179,11 +179,6 @@
         <h2>Blood Banks</h2>
         <ul>
           <?php
-          $bloodBanks = [
-              ["id" => 1, "name" => "Blood Bank A", "location" => "Location A", "landline" => "1234567890", "contact" => "9876543210", "bloodAvailable" => "A+, B-"],
-              ["id" => 2, "name" => "Blood Bank B", "location" => "Location B", "landline" => "1234567890", "contact" => "9876543210", "bloodAvailable" => "O+, AB-"],
-              // Add more blood banks as needed
-          ];
 
           if ($_SERVER["REQUEST_METHOD"] == "POST") {
               if (isset($_POST['remove'])) {

@@ -11,19 +11,6 @@
 
 <body>
     <?php include 'includes/header.php'; ?>
-
-    <div class="container">
-        <?php
-        $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-        $pagePath = 'pages/' . $page . '.php';
-
-        if (file_exists($pagePath)) {
-            include $pagePath;
-        } else {
-            include 'pages/dashboard.php';
-        }
-        ?>
-    </div>
 </body>
 
 </html>
