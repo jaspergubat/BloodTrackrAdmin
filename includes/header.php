@@ -226,33 +226,47 @@
         </ul>
       </div>
       <div id="addBloodBank" class="content">
-        <div class="container">
-          <h2>Add Blood Bank</h2>
-          <form action="add_blood_bank.php" method="POST">
+    <div class="container">
+        <h2>Add Blood Bank</h2>
+        <form action="add_blood_bank.php" method="POST">
             <div class="form-group">
-              <label for="bloodBankName">Blood Bank Name</label>
-              <input type="text" id="bloodBankName" name="bloodBankName" required>
+                <label for="bloodBankName">Blood Bank Name</label>
+                <input type="text" id="bloodBankName" name="bloodBankName" required>
             </div>
             <div class="form-group">
-              <label for="location">Location</label>
-              <textarea id="location" name="location" required></textarea>
+                <label for="location">Location</label>
+                <textarea id="location" name="location" required></textarea>
             </div>
             <div class="form-group">
-              <label for="LandlineNum">Landline Number</label>
-              <input type="tel" id="LandlineNum" name="LandlineNum" required>
+                <label for="LandlineNum">Landline Number</label>
+                <input type="tel" id="LandlineNum" name="LandlineNum" required>
             </div>
             <div class="form-group">
-              <label for="contactNumber">Contact Number</label>
-              <input type="tel" id="contactNumber" name="contactNumber" required>
+                <label for="contactNumber">Contact Number</label>
+                <input type="tel" id="contactNumber" name="contactNumber" required>
             </div>
             <div class="form-group">
-              <label for="bloodAvailable">Blood Available</label>
-              <input type="text" id="bloodAvailable" name="bloodAvailable" placeholder="e.g., A+, B-, O+" required>
+                <label for="bloodAvailable">Blood Available</label>
+                <div id="bloodAvailable">
+                    <label>
+                        <input type="checkbox" name="bloodAvailable[]" value="A"> A
+                    </label>
+                    <label>
+                        <input type="checkbox" name="bloodAvailable[]" value="B"> B
+                    </label>
+                    <label>
+                        <input type="checkbox" name="bloodAvailable[]" value="AB"> AB
+                    </label>
+                    <label>
+                        <input type="checkbox" name="bloodAvailable[]" value="O"> O
+                    </label>
+                </div>
             </div>
             <button type="submit">Add Blood Bank</button>
-          </form>
-        </div>
-      </div>
+        </form>
+    </div>
+</div>
+
       <div id="users" class="content">
         <h2>Users</h2>
         <div id="userTableContainer">
